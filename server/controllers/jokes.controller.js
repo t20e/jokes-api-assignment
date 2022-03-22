@@ -1,5 +1,16 @@
 const Joke = require('../models/jokes.model');
 
+//get random joke
+module.exports.getRandomJoke = (req, res) => {
+        let randomID = Math.floor(Math.random() * 5) + 1;
+        Joke.find()
+            .then(allJokes => res.json({jokes: 
+                (   allJokes[Math.floor(Math.random() * allJokes.length) + 1] )
+            }))
+            .catch(err => res.json({message : 'error fetching', error : err}))
+    };
+    
+
 //get all jokes
 module.exports.findAllJokes = (req, res) => {
     Joke.find()
@@ -35,14 +46,5 @@ module.exports.deleteAJoke = (req,res) =>{
             
         .catch(err=> res.json({message: 'error deleting joke', error:err}))
 }
-//get random joke
-module.exports.getRandomJoke = (req, res) => {
-        let randomID = Math.floor(Math.random() * 5) + 1;
-        Joke.find()
-            .then(allJokes => res.json({jokes: 
-                (   allJokes[Math.floor(Math.random() * allJokes.length) + 1] )
-            }))
-            .catch(err => res.json({message : 'error fetching', error : err}))
-    };
-    
+
 /**jokes assignment modukes */
